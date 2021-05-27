@@ -1,11 +1,12 @@
 <template>
 	<div class="email-display">
-		<div>
+		<div class="toolbar">
 			<button @click="toggleArchive">{{email.archived ? 'Move to Inbox (e)' : 'Archive (e)'}}</button>
 			<button @click="toggleRead">{{email.read ? 'Mark Unread (r)' : 'Mark Read (r)'}}</button>
 			<button @click="goNewer">Newer (k)</button>
 			<button @click="goOlder">Older (j)</button>
 		</div>
+
 		<h2 class="mb-0">Subject: <strong>{{email.subject}}</strong></h2>
 		<div><em>From {{email.from}} on {{format(new Date(email.sentAt), 'MMM do yyyy')}}</em></div>
 		<div v-html="marked(email.body)" />
@@ -13,30 +14,20 @@
 </template>
 
 <script>
-import  { format } from 'date-fns'
-import marked from 'marked'
-import axios from 'axios'
-import useKeydown from '../composables/use-keydown'
+import { format } from 'date-fns';
+import marked from 'marked';
+import { useKeydown } from '../composables/use-keydown';
 export default {
-	setup(props, {emit}){
-		const email = props.email;
-		// let toggleRead = () => {
-		//   email.read = !email.read
-		//   axios.put(`http://localhost:3000/emails/${email.id}`, email)
-		// }
-		// let toggleArchive = () => {
-		//   email.archived = !email.archived
-		//   axios.put(`http://localhost:3000/emails/${email.id}`, email)
-		// }
-		const toggleRead = () => { emit('changeEmail', {toggleRead: true, save: true})}
-		const toggleArchive = () => { emit('changeEmail', {toggleArchive: true, save: true, closeModal: true})}
-		const goNewer = () => { emit('changeEmail', {changeIndex: -1})}
-		const goOlder = () => { emit('changeEmail', {changeIndex: 1})}
-		const goNewerAndArchive = () => { emit('changeEmail', {changeIndex: -1, toggleArchive: true, save: true})}
-		const goOlderAndArchive = () => { emit('changeEmail', {changeIndex: 1, toggleArchive: true, save: true})}
+	setup({changeEmail}){
+		let toggleArchive = () => changeEmail({toggleArchive: true, save: true, closeModal: true})
+		let toggleRead = () => changeEmail({toggleRead: true, save: true})
+		let goNewer = () => changeEmail({indexChange: -1})
+		let goOlder = () => changeEmail({indexChange: 1})
+		let goNewerAndArchive = () => changeEmail({indexChange: -1, toggleArchive: true})
+		let goOlderAndArchive = () => changeEmail({indexChange: 1, toggleArchive: true})
 		useKeydown([
-			{key: 'r', fn: toggleRead},
 			{key: 'e', fn: toggleArchive},
+			{key: 'r', fn: toggleRead},
 			{key: 'k', fn: goNewer},
 			{key: 'j', fn: goOlder},
 			{key: '[', fn: goNewerAndArchive},
@@ -45,15 +36,19 @@ export default {
 		return {
 			format,
 			marked,
-			toggleRead,
-			toggleArchive,
+			goOlder,
 			goNewer,
-			goOlder
+			toggleRead,
+			toggleArchive
 		}
 	},
 	props: {
 		email: {
 			type: Object,
+			required: true
+		},
+		changeEmail: {
+			type: Function,
 			required: true
 		}
 	}
@@ -61,5 +56,4 @@ export default {
 </script>
 
 <style scoped>
-
 </style>
