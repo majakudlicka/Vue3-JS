@@ -1,0 +1,76 @@
+<template>
+			<button @click="selectScreen('inbox');"
+							:class="[selectedScreen === 'inbox' ? 'selected' : '']">
+				Inbox View
+			</button>
+			<button @click="selectScreen('archive')"
+							:class="[selectedScreen === 'archive' ? 'selected' : '']">
+				Archived View
+			</button>
+			<h1>VMail {{ capitalize(selectedScreen) }}</h1>
+		<BulkActionBar :emails="filteredEmails" :selectedScreen="selectedScreen"/>
+		<MailTable :emails="filteredEmails"/>
+</template>
+
+<script lang="ts">
+import {defineComponent, ref, onMounted} from 'vue';
+import axios from 'axios';
+import _ from 'lodash';
+import {IEmail} from "@/types/email";
+import MailTable from '../components/MailTable.vue';
+import BulkActionBar from '../components/BulkActionBar.vue';
+import {useEmailSelection} from '../composables/use-email-selection';
+
+export default defineComponent({
+	setup() {
+		let emails = ref([]);
+		onMounted(async () => {
+			const res = await axios.get('http://localhost:3000/emails');
+			emails.value = res.data;
+		});
+		const selectedScreen = ref('inbox');
+		return {
+			emails,
+			selectedScreen,
+			emailSelection: useEmailSelection()
+		}
+	},
+		components: {
+		BulkActionBar,
+		MailTable
+	},
+	computed: {
+		sortedEmails(): IEmail[] {
+			console.log('emails ', this.emails);
+			return _.sortBy(this.emails, 'sendAt');
+		},
+		unarchivedEmails(): IEmail[] {
+			return this.sortedEmails.filter((e: IEmail) => !e.archived)
+		},
+		archivedEmails(): IEmail[] {
+			return this.sortedEmails.filter(e => e.archived)
+		},
+		filteredEmails(): IEmail[] {
+			const filters: {
+				[key: string]: IEmail[]
+			} = {
+				inbox: this.unarchivedEmails,
+				archive: this.archivedEmails
+			}
+			console.log('filters ', filters);
+			console.log('selectedScreen ', this.selectedScreen);
+			return filters[this.selectedScreen]
+		}
+	},
+	methods: {
+		selectScreen(newScreen: string) {
+			this.selectedScreen = newScreen;
+			this.emailSelection.clear();
+		},
+		capitalize(word: string) {
+			if(!word || !word.length){ return; }
+			return word[0].toUpperCase() + word.slice(1)
+		}
+	},
+})
+</script>

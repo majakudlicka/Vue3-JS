@@ -1,5 +1,7 @@
 # webpack_typescript
 
+This project is a prototype and playground of Vue 3 + Webpack + Typescript
+
 ## Project setup
 ```
 npm install
