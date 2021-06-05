@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
+import {defineComponent, PropType} from 'vue';
 import { useKeydown } from '../composables/use-keydown';
 
 export default defineComponent({
@@ -17,7 +17,7 @@ export default defineComponent({
 	},
 	props: {
 		closeModal: {
-			type: Function,
+			type: Function as PropType<() => void>,
 			required: true
 		}
 	}

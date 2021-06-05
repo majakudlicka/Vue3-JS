@@ -1,8 +1,8 @@
 import { onBeforeUnmount } from 'vue';
 
-export const useKeydown = function(keyCombos: {key: string, fn: Function }[]) {
+export const useKeydown = function(keyCombos: {key: string, fn: () => void }[]): void {
   const onkey = function(event: { key: string }) {
-    const kc = keyCombos.find(({key}) => key == event.key )
+    const kc = keyCombos.find(({key}) => key === event.key )
     if(kc) {
       kc.fn()
     }
