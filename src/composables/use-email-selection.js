@@ -1,7 +1,7 @@
 import { reactive } from 'vue';
 import axios from 'axios';
 
-let emailSet = new Set()
+const emailSet = new Set()
 
 export const useEmailSelection = function(){
   const emails = reactive(emailSet)
