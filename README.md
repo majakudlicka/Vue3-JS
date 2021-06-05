@@ -1,4 +1,6 @@
-# vue-3-demo
+# Vue 3 + Javascript
+
+This project is a prototype and playground of Vue 3 + Javascript
 
 ## Project setup
 ```
