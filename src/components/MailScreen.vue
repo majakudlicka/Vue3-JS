@@ -1,17 +1,18 @@
 <template>
-  <button
+  <v-btn
     @click="selectScreen('inbox')"
     :class="[selectedScreen === 'inbox' ? 'selected' : '']"
+		class="mr-2"
   >
     Inbox View
-  </button>
-  <button
+  </v-btn>
+  <v-btn
     @click="selectScreen('archive')"
     :class="[selectedScreen === 'archive' ? 'selected' : '']"
   >
     Archived View
-  </button>
-  <h1>VMail {{ capitalize(selectedScreen) }}</h1>
+  </v-btn>
+  <h1 class="mt-3">VMail {{ capitalize(selectedScreen) }}</h1>
   <BulkActionBar :emails="filteredEmails" :selectedScreen="selectedScreen" />
   <MailTable :emails="filteredEmails" />
 </template>

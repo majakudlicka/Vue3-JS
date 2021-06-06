@@ -22,7 +22,7 @@
         <td class="date" @click="openEmail(email)">
           {{ format(new Date(email.sentAt), "MMM do yyyy") }}
         </td>
-        <td><button @click="archiveEmail(email)">Archive</button></td>
+        <td><v-btn size="x-small" @click="archiveEmail(email)">Archive</v-btn></td>
       </tr>
     </tbody>
   </table>

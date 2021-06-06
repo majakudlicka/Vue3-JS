@@ -1,9 +1,23 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <v-app>
+    <v-main>
+      <v-app-bar>
+        <v-spacer></v-spacer>
+        <div>
+          <v-btn plain>
+            <router-link to="/">Home</router-link>
+          </v-btn>
+          <v-divider vertical></v-divider>
+          <v-btn plain>
+            <router-link to="/about">About</router-link>
+          </v-btn>
+        </div>
+      </v-app-bar>
+      <v-container fluid>
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
 <style lang="scss">
@@ -13,7 +27,7 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 5px;
 }
 /* Global Styles */
 button {
@@ -23,18 +37,7 @@ button {
   margin: 5px 10px 5px 0px;
   cursor: pointer;
 }
-button:disabled {
-  cursor: auto;
-}
-button.selected {
-  cursor: auto;
-  color: black;
-  border-color: black;
-  border-width: 2px;
-}
-.clickable {
-  cursor: pointer;
-}
+
 input[type="checkbox"] {
   -webkit-appearance: none;
   cursor: pointer;
@@ -53,9 +56,6 @@ input[type="checkbox"].partial-check {
 input[type="checkbox"]:checked {
   background: #679;
 }
-.mb-0 {
-  margin-bottom: 0;
-}
 /* Modal */
 .modal,
 .overlay {
@@ -73,7 +73,7 @@ input[type="checkbox"]:checked {
   position: relative;
   max-width: 80%;
   margin: auto;
-  margin-top: 30px;
+  margin-top: 90px;
   padding: 20px;
   background-color: white;
   min-height: 500px;
@@ -112,13 +112,13 @@ input[type="checkbox"]:checked {
 .mail-table td.date {
   width: 120px;
 }
-/* Bulk Action Bar */
+///* Bulk Action Bar */
 .bulk-action-bar {
   width: 100%;
   max-width: 1000px;
   margin: auto;
   text-align: left;
-  padding-bottom: 8px;
+  padding-bottom: 10px;
 }
 .bulk-action-bar input {
   margin: 5px;

@@ -1,5 +1,6 @@
 <template>
   <div class="bulk-action-bar">
+    <!--		Checkboxes are not available in Vuetify alpha :( -->
     <span class="checkbox">
       <input
         type="checkbox"
@@ -8,34 +9,43 @@
         @click="bulkSelect"
       />
     </span>
-
     <span class="buttons">
-      <button
+      <v-btn
+        outlined
+        size="small"
+        class="mr-1"
         @click="emailSelection.markRead()"
         :disabled="Array.from(emailSelection.emails).every((e) => e.read)"
       >
         Mark Read
-      </button>
-      <button
+      </v-btn>
+      <v-btn
+        outlined
+        size="small"
+        class="mr-1"
         @click="emailSelection.markUnread()"
         :disabled="Array.from(emailSelection.emails).every((e) => !e.read)"
       >
         Mark Unread
-      </button>
-      <button
+      </v-btn>
+      <v-btn
+        outlined
+        size="small"
         v-if="selectedScreen === 'inbox'"
         @click="emailSelection.archive()"
         :disabled="numberSelected === 0"
       >
         Archive
-      </button>
-      <button
+      </v-btn>
+      <v-btn
+        outlined
+        size="small"
         v-else
         @click="emailSelection.moveToInbox()"
         :disabled="numberSelected === 0"
       >
         Move to Inbox
-      </button>
+      </v-btn>
     </span>
   </div>
 </template>

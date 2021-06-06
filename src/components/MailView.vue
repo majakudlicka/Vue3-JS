@@ -1,14 +1,14 @@
 <template>
   <div class="email-display">
     <div class="toolbar">
-      <button @click="toggleArchive">
+      <v-btn @click="toggleArchive">
         {{ email.archived ? "Move to Inbox (e)" : "Archive (e)" }}
-      </button>
-      <button @click="toggleRead">
+      </v-btn>
+      <v-btn @click="toggleRead">
         {{ email.read ? "Mark Unread (r)" : "Mark Read (r)" }}
-      </button>
-      <button @click="goNewer">Newer (k)</button>
-      <button @click="goOlder">Older (j)</button>
+      </v-btn>
+      <v-btn @click="goNewer">Newer (k)</v-btn>
+      <v-btn @click="goOlder">Older (j)</v-btn>
     </div>
 
     <h2 class="mb-0">
