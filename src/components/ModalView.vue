@@ -7,20 +7,19 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent, PropType} from 'vue';
 import { useKeydown } from '../composables/use-keydown';
-export default {
-	setup({closeModal}){
-		useKeydown([{key: 'Escape', fn: closeModal}])
+
+export default defineComponent({
+	setup(props){
+		useKeydown([{key: 'Escape', fn: props.closeModal}])
 	},
 	props: {
 		closeModal: {
-			type: Function,
+			type: Function as PropType<() => void>,
 			required: true
 		}
 	}
-}
+})
 </script>
-
-<style scoped>
-</style>

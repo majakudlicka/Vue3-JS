@@ -14,17 +14,18 @@
 </template>
 
 <script>
+import {defineComponent} from 'vue';
 import { format } from 'date-fns';
 import marked from 'marked';
 import { useKeydown } from '../composables/use-keydown';
-export default {
-	setup({changeEmail}){
-		let toggleArchive = () => changeEmail({toggleArchive: true, save: true, closeModal: true})
-		let toggleRead = () => changeEmail({toggleRead: true, save: true})
-		let goNewer = () => changeEmail({indexChange: -1})
-		let goOlder = () => changeEmail({indexChange: 1})
-		let goNewerAndArchive = () => changeEmail({indexChange: -1, toggleArchive: true})
-		let goOlderAndArchive = () => changeEmail({indexChange: 1, toggleArchive: true})
+export default defineComponent({
+	setup(props){
+		const toggleArchive = () => props.changeEmail({toggleArchive: true, save: true, closeModal: true})
+		const toggleRead = () => props.changeEmail({toggleRead: true, save: true})
+		const goNewer = () => props.changeEmail({indexChange: -1})
+		const goOlder = () => props.changeEmail({indexChange: 1})
+		const goNewerAndArchive = () => props.changeEmail({indexChange: -1, toggleArchive: true})
+		const goOlderAndArchive = () => props.changeEmail({indexChange: 1, toggleArchive: true})
 		useKeydown([
 			{key: 'e', fn: toggleArchive},
 			{key: 'r', fn: toggleRead},
@@ -52,8 +53,5 @@ export default {
 			required: true
 		}
 	}
-}
+})
 </script>
-
-<style scoped>
-</style>

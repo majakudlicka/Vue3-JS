@@ -1,73 +1,76 @@
 <template>
-	<button @click="selectScreen('inbox');"
-					:class="[selectedScreen === 'inbox' ? 'selected' : '']">
-		Inbox View
-	</button>
-	<button @click="selectScreen('archive')"
-					:class="[selectedScreen === 'archive' ? 'selected' : '']">
-		Archived View
-	</button>
-
-	<h1>VMail {{capitalize(selectedScreen)}}</h1>
-
-	<BulkActionBar :emails="filteredEmails"
-								 :selectedScreen="selectedScreen" />
-
-	<MailTable :emails="filteredEmails" />
+			<button @click="selectScreen('inbox');"
+							:class="[selectedScreen === 'inbox' ? 'selected' : '']">
+				Inbox View
+			</button>
+			<button @click="selectScreen('archive')"
+							:class="[selectedScreen === 'archive' ? 'selected' : '']">
+				Archived View
+			</button>
+			<h1>VMail {{ capitalize(selectedScreen) }}</h1>
+		<BulkActionBar :emails="filteredEmails" :selectedScreen="selectedScreen"/>
+		<MailTable :emails="filteredEmails"/>
 </template>
 
-<script>
+<script lang="ts">
+import {defineComponent, ref, onMounted} from 'vue';
 import axios from 'axios';
-import MailTable from '@/components/MailTable.vue';
-import BulkActionBar from '@/components/BulkActionBar.vue';
-import { useEmailSelection } from '@/composables/use-email-selection';
-export default {
-	async setup(){
-		const response = await axios.get('http://localhost:3000/emails');
-		const emails = response.data;
-		const selectedScreen = 'inbox';
+import _ from 'lodash';
+import {IEmail} from "@/types/email";
+import MailTable from '../components/MailTable.vue';
+import BulkActionBar from '../components/BulkActionBar.vue';
+import {useEmailSelection} from '../composables/use-email-selection';
+
+export default defineComponent({
+	setup() {
+		let emails = ref([]);
+		onMounted(async () => {
+			const res = await axios.get('http://localhost:3000/emails');
+			emails.value = res.data;
+		});
+		const selectedScreen = ref('inbox');
 		return {
 			emails,
 			selectedScreen,
 			emailSelection: useEmailSelection()
 		}
 	},
-	components: {
+		components: {
 		BulkActionBar,
 		MailTable
 	},
+	computed: {
+		sortedEmails(): IEmail[] {
+			console.log('emails ', this.emails);
+			return _.sortBy(this.emails, 'sendAt');
+		},
+		unarchivedEmails(): IEmail[] {
+			return this.sortedEmails.filter((e: IEmail) => !e.archived)
+		},
+		archivedEmails(): IEmail[] {
+			return this.sortedEmails.filter(e => e.archived)
+		},
+		filteredEmails(): IEmail[] {
+			const filters: {
+				[key: string]: IEmail[]
+			} = {
+				inbox: this.unarchivedEmails,
+				archive: this.archivedEmails
+			}
+			console.log('filters ', filters);
+			console.log('selectedScreen ', this.selectedScreen);
+			return filters[this.selectedScreen]
+		}
+	},
 	methods: {
-		selectScreen(newScreen) {
+		selectScreen(newScreen: string) {
 			this.selectedScreen = newScreen;
 			this.emailSelection.clear();
 		},
-		capitalize(word) {
+		capitalize(word: string) {
 			if(!word || !word.length){ return; }
 			return word[0].toUpperCase() + word.slice(1)
 		}
 	},
-	computed: {
-		sortedEmails(){
-			return this.emails.sort((e1, e2) => {
-				return e1.sentAt < e2.sentAt ? 1 : -1
-			})
-		},
-		unarchivedEmails(){
-			return this.sortedEmails.filter(e => !e.archived)
-		},
-		archivedEmails(){
-			return this.sortedEmails.filter(e => e.archived)
-		},
-		filteredEmails(){
-			const filters = {
-				inbox: this.unarchivedEmails,
-				archive: this.archivedEmails
-			}
-			return filters[this.selectedScreen]
-		}
-	}
-}
+})
 </script>
-
-<style scoped>
-</style>

@@ -1,10 +1,10 @@
 <template>
 	<div class="bulk-action-bar">
-    <span class="checkbox">
-      <input type="checkbox"
-						 :checked="allAreSelected"
-						 :class="[partialSelection ? 'partial-check' : '']"
-						 @click="bulkSelect">
+		<span class="checkbox">
+			<input type="checkbox"
+						:checked="allAreSelected"
+						:class="[partialSelection ? 'partial-check' : '']"
+						@click="bulkSelect">
     </span>
 
 		<span class="buttons">
@@ -16,25 +16,28 @@
 							:disabled="Array.from(emailSelection.emails).every(e => !e.read)">
         Mark Unread
       </button>
-      <button v-if="selectedScreen == 'inbox'"
+      <button v-if="selectedScreen === 'inbox'"
 							@click="emailSelection.archive()"
-							:disabled="numberSelected == 0">
+							:disabled="numberSelected === 0">
         Archive
       </button>
       <button v-else
 							@click="emailSelection.moveToInbox()"
-							:disabled="numberSelected == 0">
-        Move to Inbox
-      </button>
-    </span>
+							:disabled="numberSelected === 0">
+				Move to Inbox
+			</button>
+		</span>
 	</div>
 </template>
 
-<script>
-import { useEmailSelection } from '../composables/use-email-selection';
-import { computed } from 'vue';
-export default {
-	setup(props){
+<script lang="ts">
+import {defineComponent, PropType} from 'vue'
+import {useEmailSelection} from '../composables/use-email-selection';
+import {computed} from 'vue';
+import {IEmail} from "@/types/email";
+
+export default defineComponent({
+	setup(props) {
 		const emailSelection = useEmailSelection();
 		const numberSelected = computed(() => {
 			return emailSelection.emails.size;
@@ -46,8 +49,8 @@ export default {
 			return numberSelected.value > 0 && !allAreSelected.value;
 		})
 
-		const bulkSelect = function(){
-			if(allAreSelected.value) {
+		const bulkSelect = function () {
+			if (allAreSelected.value) {
 				emailSelection.clear();
 			} else {
 				emailSelection.addMultiple(props.emails)
@@ -63,7 +66,7 @@ export default {
 	},
 	props: {
 		emails: {
-			type: Array,
+			type: Array as PropType<Array<IEmail>>,
 			required: true
 		},
 		selectedScreen: {
@@ -71,8 +74,5 @@ export default {
 			required: true
 		}
 	}
-}
+})
 </script>
-
-<style scoped>
-</style>

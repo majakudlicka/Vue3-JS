@@ -11,14 +11,17 @@
 	</div>
 </template>
 
-<script>
+<script lang="ts">
+import { defineComponent } from 'vue';
 import MailScreen from '@/components/MailScreen.vue';
-export default {
+
+
+export default defineComponent({
 	name: 'App',
 	components: {
 		MailScreen
 	}
-};
+})
 </script>
 
 <style>
