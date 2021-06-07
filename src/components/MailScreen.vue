@@ -46,7 +46,6 @@ export default defineComponent({
   },
   computed: {
     sortedEmails(): IEmail[] {
-      console.log("emails ", this.emails);
       return _.sortBy(this.emails, "sendAt");
     },
     unarchivedEmails(): IEmail[] {
@@ -62,8 +61,6 @@ export default defineComponent({
         inbox: this.unarchivedEmails,
         archive: this.archivedEmails,
       };
-      console.log("filters ", filters);
-      console.log("selectedScreen ", this.selectedScreen);
       return filters[this.selectedScreen];
     },
   },

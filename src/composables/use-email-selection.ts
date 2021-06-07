@@ -1,6 +1,6 @@
 import { reactive } from "vue";
 import axios from "axios";
-import { IEmail } from "@/types/email";
+import { IEmail } from "../types/email";
 
 const emailSet = new Set();
 
