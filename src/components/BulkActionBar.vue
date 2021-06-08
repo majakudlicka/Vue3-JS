@@ -63,10 +63,7 @@ export default defineComponent({
       return emailSelection.emails.size;
     });
     const allAreSelected = computed(() => {
-      return (
-        props.emails.length === numberSelected.value &&
-        numberSelected.value !== 0
-      );
+      return props.emails.length === numberSelected.value && numberSelected.value !== 0;
     });
     const partialSelection = computed(() => {
       return numberSelected.value > 0 && !allAreSelected.value;

@@ -2,14 +2,11 @@
   <v-btn
     @click="selectScreen('inbox')"
     :class="[selectedScreen === 'inbox' ? 'selected' : '']"
-		class="mr-2"
+    class="mr-2"
   >
     Inbox View
   </v-btn>
-  <v-btn
-    @click="selectScreen('archive')"
-    :class="[selectedScreen === 'archive' ? 'selected' : '']"
-  >
+  <v-btn @click="selectScreen('archive')" :class="[selectedScreen === 'archive' ? 'selected' : '']">
     Archived View
   </v-btn>
   <h1 class="mt-3">VMail {{ capitalize(selectedScreen) }}</h1>
@@ -46,7 +43,6 @@ export default defineComponent({
   },
   computed: {
     sortedEmails(): IEmail[] {
-      console.log("emails ", this.emails);
       return _.sortBy(this.emails, "sendAt");
     },
     unarchivedEmails(): IEmail[] {
@@ -62,8 +58,6 @@ export default defineComponent({
         inbox: this.unarchivedEmails,
         archive: this.archivedEmails,
       };
-      console.log("filters ", filters);
-      console.log("selectedScreen ", this.selectedScreen);
       return filters[this.selectedScreen];
     },
   },
