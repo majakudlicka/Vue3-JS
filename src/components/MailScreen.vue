@@ -2,14 +2,11 @@
   <v-btn
     @click="selectScreen('inbox')"
     :class="[selectedScreen === 'inbox' ? 'selected' : '']"
-		class="mr-2"
+    class="mr-2"
   >
     Inbox View
   </v-btn>
-  <v-btn
-    @click="selectScreen('archive')"
-    :class="[selectedScreen === 'archive' ? 'selected' : '']"
-  >
+  <v-btn @click="selectScreen('archive')" :class="[selectedScreen === 'archive' ? 'selected' : '']">
     Archived View
   </v-btn>
   <h1 class="mt-3">VMail {{ capitalize(selectedScreen) }}</h1>

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "tsc --noEmit",
+    "build": "tsc --noEmit && vite build",
     "dev": "vite",
     "lint": "eslint --ext .ts,vue --ignore-path .gitignore .",
     "serve": "vite preview"

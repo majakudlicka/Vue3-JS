@@ -80,6 +80,11 @@ input[type="checkbox"]:checked {
   z-index: 10;
   opacity: 1;
 }
+
+.clickable {
+  cursor: pointer;
+}
+
 /* Email Modal */
 .email-display {
   text-align: left;

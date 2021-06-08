@@ -1,11 +1,7 @@
 <template>
   <table class="mail-table">
     <tbody>
-      <tr
-        v-for="email in emails"
-        :key="email.id"
-        :class="[email.read ? 'read' : '', 'clickable']"
-      >
+      <tr v-for="email in emails" :key="email.id" :class="[email.read ? 'read' : '', 'clickable']">
         <td>
           <input
             type="checkbox"
@@ -34,10 +30,7 @@
       }
     "
   >
-    <MailView
-      :email="openedEmail"
-      :changeEmail="(args) => changeEmail(openedEmail, args)"
-    />
+    <MailView :email="openedEmail" :changeEmail="(args) => changeEmail(openedEmail, args)" />
   </ModalView>
 </template>
 
@@ -111,7 +104,7 @@ export default defineComponent({
   },
   props: {
     emails: {
-      type: Array as PropType<Array<IEmail>>,
+      type: Array as PropType<IEmail[]>,
       required: true,
     },
   },

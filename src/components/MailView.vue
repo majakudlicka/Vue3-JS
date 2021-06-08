@@ -15,10 +15,7 @@
       Subject: <strong>{{ email.subject }}</strong>
     </h2>
     <div>
-      <em
-        >From {{ email.from }} on
-        {{ format(new Date(email.sentAt), "MMM do yyyy") }}</em
-      >
+      <em>From {{ email.from }} on {{ format(new Date(email.sentAt), "MMM do yyyy") }}</em>
     </div>
     <div v-html="marked(email.body)" />
   </div>
@@ -33,14 +30,11 @@ export default defineComponent({
   setup(props) {
     const toggleArchive = () =>
       props.changeEmail({ toggleArchive: true, save: true, closeModal: true });
-    const toggleRead = () =>
-      props.changeEmail({ toggleRead: true, save: true });
+    const toggleRead = () => props.changeEmail({ toggleRead: true, save: true });
     const goNewer = () => props.changeEmail({ indexChange: -1 });
     const goOlder = () => props.changeEmail({ indexChange: 1 });
-    const goNewerAndArchive = () =>
-      props.changeEmail({ indexChange: -1, toggleArchive: true });
-    const goOlderAndArchive = () =>
-      props.changeEmail({ indexChange: 1, toggleArchive: true });
+    const goNewerAndArchive = () => props.changeEmail({ indexChange: -1, toggleArchive: true });
+    const goOlderAndArchive = () => props.changeEmail({ indexChange: 1, toggleArchive: true });
     useKeydown([
       { key: "e", fn: toggleArchive },
       { key: "r", fn: toggleRead },
