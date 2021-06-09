@@ -1,6 +1,11 @@
 # Vue3-Playground
 
-The aim of this project is to test out different setups of Vue3 (Js, Typescript, vite / webpack, Vuetify...)
+The aim of this project is to test out different setups of Vue3 (Js, Typescript, vite / webpack, Vuetify...) on
+a basic email mailbox app. The app has two views - Inbox and Archived - that the user can switch between. User can move 
+emails from one view to another, mark them as read/unread as well as select a particular email to be displayed. App
+also supports basic keyboard shortcuts.
+
+App uses static server to serve the emails.
 
 Different branches represent different setups:
 
