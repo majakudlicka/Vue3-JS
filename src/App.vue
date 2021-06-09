@@ -1,23 +1,23 @@
 <template>
-	<div id="app">
-		<Suspense>
-			<template #default>
-				<MailScreen />
-			</template>
-			<template #fallback>
-				Loading...
-			</template>
-		</Suspense>
-	</div>
+  <div id="app">
+    <Suspense>
+      <template #default>
+        <MailScreen />
+      </template>
+      <template #fallback>
+        Loading...
+      </template>
+    </Suspense>
+  </div>
 </template>
 
 <script>
 import MailScreen from '@/components/MailScreen.vue';
 export default {
-	name: 'App',
-	components: {
-		MailScreen
-	}
+  name: 'App',
+  components: {
+    MailScreen
+  }
 };
 </script>
 

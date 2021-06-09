@@ -1,25 +1,39 @@
-# Vue 3 + Javascript
+# Vue3-Playground
 
-This project is a prototype and playground of Vue 3 + Javascript
+The aim of this project is to test out different setups of Vue3 (Js, Typescript, vite / webpack, Vuetify...)
+
+Different branches represent different setups:
+
+- `javascript`(default branch):  Vue3 + Javascript + Webpack
+- `typescript`: Vue3 + Typescript + Webpack
+- `typescript+vuetify`: Vue3 + Typescript + Vuetify + Vue Router + Vuex + Webpack
+- `typescript+vuetify+vite`: Vue3 + Typescript + Vuetify + Vue Router + Vuex + Vite
 
 ## Project setup
 ```
-yarn install
+npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run locally
+
+#### Start static server
 ```
-yarn serve
+npm run server
 ```
 
-### Compiles and minifies for production
+#### Run project
 ```
-yarn build
+npm run serve
 ```
 
-### Lints and fixes files
+### Build for production
 ```
-yarn lint
+npm run build
+```
+
+### Lint
+```
+npm run lint
 ```
 
 ### Customize configuration
