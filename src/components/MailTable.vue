@@ -44,7 +44,7 @@ import { useEmailSelection } from "../composables/use-email-selection";
 import axios from "axios";
 export default defineComponent({
   setup() {
-    let openedEmail = ref(null as null | IEmail);
+    let openedEmail = ref<null | IEmail>(null);
     return {
       format,
       openedEmail,
