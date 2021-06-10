@@ -1,23 +1,42 @@
-# webpack_typescript
+# VMail: Vue3-Playground
 
-This project is a prototype and playground of Vue 3 + Webpack + Typescript
+The aim of this project is to test out different setups of Vue3 (Js, Typescript, vite / webpack, Vuetify...) on
+a basic mailbox app. The app has two views - Inbox and Archived - that the user can switch between. User can move
+emails from one view to another, mark them as read/unread as well as select a particular email to be displayed. App
+also supports basic keyboard shortcuts.
+
+App uses static server to serve the emails.
+
+Different branches represent different setups:
+
+- `javascript`(default branch):  Vue3 + Javascript + Webpack
+- `typescript`: Vue3 + Typescript + Webpack
+- `typescript+vuetify`: Vue3 + Typescript + Vuetify + Vue Router + Vuex + Webpack
+- `typescript+vuetify+vite`: Vue3 + Typescript + Vuetify + Vue Router + Vuex + Vite
 
 ## Project setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Run locally
+
+#### Start static server
+```
+npm run server
+```
+
+#### Run project
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Build for production
 ```
 npm run build
 ```
 
-### Lints and fixes files
+### Lint
 ```
 npm run lint
 ```
